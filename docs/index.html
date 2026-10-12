@@ -5,44 +5,262 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UCUP OFS - Official Website</title>
     <style>
-        body { background-color: #0b0510; color: #ffffff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; margin: 0; }
-        .container { max-width: 600px; margin: 0 auto; }
-        h1 { color: #ff66b2; font-size: 3rem; text-transform: uppercase; text-shadow: 0 0 10px rgba(255, 102, 178, 0.5); }
-        .section { background-color: #160d22; border: 1px solid #2e1a47; border-radius: 10px; padding: 25px; margin-bottom: 25px; text-align: left; }
-        .section h2 { color: #00ffcc; margin-top: 0; border-bottom: 2px solid #2e1a47; padding-bottom: 10px; }
-        .suporter-badge { background: linear-gradient(45deg, #ffcc00, #ff66b2); color: #0b0510; padding: 15px; border-radius: 8px; font-weight: bold; margin-bottom: 25px; text-align: center; box-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
-        input { width: 100%; padding: 12px; background-color: #0b0510; border: 1px solid #4a287a; border-radius: 5px; color: white; font-size: 1rem; box-sizing: border-box; margin-bottom: 15px; }
-        .btn { background-color: #ff66b2; color: white; border: none; padding: 12px 25px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; text-decoration: none; display: inline-block; text-align: center; box-sizing: border-box; }
-        .btn:hover { background-color: #e04d97; }
-        .premium-box { background-color: #221435; border: 1px dashed #ffcc00; padding: 15px; border-radius: 5px; margin-top: 10px; color: #ffcc00; font-size: 0.9rem; }
+        body {
+            background-color: #0b0510;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #ff66b2;
+            font-size: 3rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 102, 178, 0.5);
+        }
+        .subtitle {
+            color: #aaa;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        .section {
+            background-color: #160d22;
+            border: 1px solid #2e1a47;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .section h2 {
+            color: #00ffcc;
+            margin-top: 0;
+            border-bottom: 2px solid #2e1a47;
+            padding-bottom: 10px;
+        }
+        .suporter-badge {
+            background: linear-gradient(45deg, #ffcc00, #ff66b2);
+            color: #0b0510;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            background-color: #0b0510;
+            border: 1px solid #4a287a;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        .btn {
+            background-color: #ff66b2;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .btn:hover {
+            background-color: #e04d97;
+        }
+        .btn-download {
+            background-color: #00ffcc;
+            color: #0b0510;
+            padding: 8px 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            float: right;
+        }
+        .map-item {
+            background-color: #0b0510;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ff66b2;
+            overflow: hidden;
+        }
+        .map-info {
+            float: left;
+        }
+        .map-info p {
+            margin: 5px 0 0 0;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        .premium-box {
+            background-color: #221435;
+            border: 1px dashed #ffcc00;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            color: #ffcc00;
+            font-size: 0.9rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #2e1a47;
+        }
+        th {
+            color: #ff66b2;
+        }
+        .rank-highlight {
+            font-weight: bold;
+            color: #00ffcc;
+        }
+        .grade-ss { color: #ffcc00; font-weight: bold; }
+        .grade-s { color: #ff66b2; font-weight: bold; }
+        .grade-a { color: #00ffcc; font-weight: bold; }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>UCUP OFS</h1>
-        <p style="color: #aaa; margin-bottom: 30px;">Official Account Dashboard & Leaderboards</p>
-        <div class="suporter-badge">👑 VIP STATUS: UCUP SUPORTER YANG ASLI ACTIVE!</div>
+        <p class="subtitle">Official Account Dashboard & Leaderboards</p>
+
+        <!-- OFFICIAL SUPORTER STATUS -->
+        <div class="suporter-badge">
+            👑 VIP STATUS: UCUP SUPORTER YANG ASLI ACTIVE!
+        </div>
+
+        <!-- WINDOW 1: REGISTER -->
         <div class="section">
             <h2>Window 1: Create Account (Register)</h2>
             <form action="#window-login">
-                <label>Email Address</label><input type="email" placeholder="name@example.com" required>
-                <label>Username</label><input type="text" placeholder="Enter your username" required>
-                <label>Password</label><input type="password" placeholder="Enter your password" required>
+                <label>Email Address</label>
+                <input type="email" placeholder="name@example.com" required>
+                
+                <label>Username</label>
+                <input type="text" placeholder="Enter your username" required>
+                
+                <label>Password</label>
+                <input type="password" placeholder="Enter your password" required>
+                
                 <button type="submit" class="btn">Save & Go to Login →</button>
             </form>
         </div>
+
+        <!-- WINDOW 2: LOGIN -->
         <div class="section" id="window-login">
             <h2>Window 2: Dashboard Access (Login)</h2>
             <form onsubmit="alert('Login Successful! Welcome Ucup Suporter!'); return false;">
-                <label>Email or Username</label><input type="text" placeholder="Enter registered Email or Username" required>
-                <label>Password</label><input type="password" placeholder="Enter your password" required>
+                <label>Email or Username</label>
+                <input type="text" placeholder="Enter registered Email or Username" required>
+                
+                <label>Password</label>
+                <input type="password" placeholder="Enter your password" required>
+                
                 <button type="submit" class="btn">Sign In to Dashboard</button>
             </form>
         </div>
+
+        <!-- SONGS DOWNLOAD SYSTEM (BEATMAPS) -->
+        <div class="section">
+            <h2>Download Songs (Beatmaps)</h2>
+            
+            <div class="map-item">
+                <div class="map-info">
+                    <strong>Ucup Theme Song - Remixed</strong>
+                    <p>BPM: 180 | Difficulty: ★★★★☆ (Hard)</p>
+                </div>
+                <a href="https://stanford.edu" download="Ucup_Theme_Song_Remixed.mp3" class="btn-download">Download Map</a>
+            </div>
+
+            <div class="map-item">
+                <div class="map-info">
+                    <strong>Diva Cyber Track - Electronic</strong>
+                    <p>BPM: 145 | Difficulty: ★★★☆☆ (Normal)</p>
+                </div>
+                <a href="https://stanford.edu" download="Diva_Cyber_Track.mp3" class="btn-download">Download Map</a>
+            </div>
+            
+            <div class="map-item">
+                <div class="map-info">
+                    <strong>Cyberpunk Neo Tokyo - Synthwave</strong>
+                    <p>BPM: 165 | Difficulty: ★★★★★ (Expert)</p>
+                </div>
+                <a href="https://stanford.edu" download="Cyberpunk_Neo_Tokyo.mp3" class="btn-download">Download Map</a>
+            </div>
+        </div>
+
+        <!-- GLOBAL LEADERBOARDS & RANK NAMES -->
+        <div class="section">
+            <h2>Global Top Rankings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>RANK</th>
+                        <th>PLAYER NAME</th>
+                        <th>GAME MODE</th>
+                        <th>GRADE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rank-highlight">#1</td>
+                        <td>UcupThePro</td>
+                        <td>Standard</td>
+                        <td class="grade-ss">SS</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-highlight">#2</td>
+                        <td>DivaMaster</td>
+                        <td>Diva Style</td>
+                        <td class="grade-s">S</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-highlight">#3</td>
+                        <td>OsuFanatic</td>
+                        <td>Standard</td>
+                        <td class="grade-a">A</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-highlight">#4</td>
+                        <td>ummma</td>
+                        <td>Standard</td>
+                        <td class="grade-a">A</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PREMIUM FEATURES -->
         <div class="section">
             <h2>New Features (Suporter Only)</h2>
-            <div class="premium-box"><strong>Connected to Cloud Game Core:</strong> Your supporter account is auto-syncing with the game database to backup your highscores safely.</div>
+            <div class="premium-box">
+                <strong>Connected to Cloud Game Core:</strong> Your supporter account is auto-syncing with the game database to backup your highscores safely.
+            </div>
         </div>
+
     </div>
+
 </body>
 </html>
