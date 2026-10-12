@@ -56,7 +56,7 @@
             align-items: center;
             box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
         }
-        input[type="text"], input[type="password"] {
+        input[type="text"], input[type="password"], input[type="email"] {
             width: 100%;
             padding: 12px;
             background-color: #0b0510;
@@ -161,6 +161,16 @@
             color: #00ffcc;
             font-weight: bold;
         }
+        .premium-feature {
+            background-color: #1d2b27;
+            border: 1px solid #00ffcc;
+            color: #00ffcc;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -169,29 +179,35 @@
         <h1>UCUP OFS</h1>
         <div class="subtitle">Official Account Dashboard & Leaderboards</div>
 
-        <!-- Bagian Status Login -->
+        <!-- Tampilan Status Logged In -->
         <div id="userStatus" class="user-status"></div>
 
-        <!-- MENU KHUSUS: UCUP SUPORTER YANG ASLI -->
+        <!-- MENU PREMIUM: UCUP SUPORTER YANG ASLI -->
         <div class="suporter-badge" id="suporterBadge" style="display: none;">
             <span>👑 KLAIM STATUS: UCUP SUPORTER YANG ASLI</span>
-            <button class="btn-suporter" onclick="verifySuporter()">Verifikasi Status</button>
+            <button class="btn-suporter" onclick="verifySuporter()">Verifikasi Akun</button>
         </div>
 
-        <!-- Sistem Register & Login -->
+        <!-- Jendela Autentikasi (Register & Login) -->
         <div class="section" id="authSection">
             <h2 id="authTitle">Account Registration</h2>
+            
+            <!-- Window Register -->
             <div id="registerForm">
-                <label>Register Username</label>
+                <label>Email Address</label>
+                <input type="email" id="regEmail" placeholder="name@example.com">
+                <label>Username</label>
                 <input type="text" id="regUsername" placeholder="Enter desired username">
                 <label>Password</label>
                 <input type="password" id="regPassword" placeholder="Enter password">
                 <button class="btn-submit" onclick="handleRegister()">Verify & Create Account</button>
                 <span class="toggle-auth" onclick="toggleAuth(false)">Sudah punya akun? Login disini</span>
             </div>
+
+            <!-- Window Login -->
             <div id="loginForm" style="display: none;">
-                <label>Username</label>
-                <input type="text" id="loginUsername" placeholder="Enter your username">
+                <label>Email or Username</label>
+                <input type="text" id="loginIdentifier" placeholder="Enter your email or username">
                 <label>Password</label>
                 <input type="password" id="loginPassword" placeholder="Enter your password">
                 <button class="btn-submit" onclick="handleLogin()">Sign In to Dashboard</button>
@@ -199,13 +215,14 @@
             </div>
         </div>
 
-        <!-- Sistem Download Lagu Beneran -->
+        <!-- Sistem Download Lagu Musik Asli -->
         <div class="section">
             <h2>Download Songs (Beatmaps)</h2>
             <div class="map-item">
                 <div class="map-info">
                     <strong>Ucup Theme Song - Remixed</strong>
                     <p>BPM: 180 | Difficulty: ★★★★☆ (Hard)</p>
+                    <div class="premium-feature class-premium">🔒 Fitur Terbaru: Auto Sync ke Cloud Game</div>
                 </div>
                 <button class="btn-download" onclick="generateRealAudio('Ucup_Theme_Song_Remixed.mp3')">Download Map</button>
             </div>
@@ -213,12 +230,13 @@
                 <div class="map-info">
                     <strong>Diva Cyber Track - Electronic</strong>
                     <p>BPM: 145 | Difficulty: ★★★☆☆ (Normal)</p>
+                    <div class="premium-feature class-premium">🔒 Fitur Terbaru: Auto Sync ke Cloud Game</div>
                 </div>
                 <button class="btn-download" onclick="generateRealAudio('Diva_Cyber_Track.mp3')">Download Map</button>
             </div>
         </div>
 
-        <!-- Leaderboard -->
+        <!-- Papan Peringkat Global -->
         <div class="section">
             <h2>Global Top Rankings</h2>
             <table>
@@ -242,35 +260,21 @@
     <script>
         let currentUser = "";
 
-        function toggleAuth(isRegister) {
-            document.getElementById('authTitle').innerText = isRegister ? 'Account Registration' : 'Account Login';
-            document.getElementById('registerForm').style.display = isRegister ? 'block' : 'none';
-            document.getElementById('loginForm').style.display = isRegister ? 'none' : 'block';
+        // Fungsi Ganti Tampilan Antara Register / Login
+        function toggleAuth(showRegister) {
+            document.getElementById('authTitle').innerText = showRegister ? 'Account Registration' : 'Account Login';
+            document.getElementById('registerForm').style.display = showRegister ? 'block' : 'none';
+            document.getElementById('loginForm').style.display = showRegister ? 'none' : 'block';
         }
 
+        // Fungsi Mendaftar Akun & Save Data
         function handleRegister() {
+            const email = document.getElementById('regEmail').value.trim();
             const user = document.getElementById('regUsername').value.trim();
             const pass = document.getElementById('regPassword').value.trim();
-            if(!user || !pass) return alert('Username dan Password wajib diisi!');
-            localStorage.setItem("ucup_user_" + user, pass);
-            alert('Pendaftaran Berhasil! Silakan Login.');
-            toggleAuth(false);
-        }
-
-        function handleLogin() {
-            const user = document.getElementById('loginUsername').value.trim();
-            const pass = document.getElementById('loginPassword').value.trim();
-            const savedPass = localStorage.getItem("ucup_user_" + user);
             
-            if(savedPass && savedPass === pass) {
-                currentUser = user;
-                alert('Selamat datang di UCUP OFS, ' + user + '!');
-                document.getElementById('authSection').style.display = 'none';
-                
-                const statusDiv = document.getElementById('userStatus');
-                statusDiv.innerText = '🟢 Logged in as: ' + user;
-                statusDiv.style.display = 'block';
+            if(!email || !user || !pass) return alert('Semua kolom data wajib diisi!');
+            
+            // Bungkus data akun
 
-                document.getElementById('suporterBadge').style.display = 'flex';
-
-                const tbody = document.getElementById('leaderboardBody');
+        
