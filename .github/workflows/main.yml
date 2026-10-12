@@ -29,4 +29,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: game-windows-exe
-        path: output/
+        path: output/**/*  # Memastikan semua file di dalam folder output ikut terunggah
+
