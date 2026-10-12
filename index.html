@@ -76,26 +76,12 @@
         .btn:hover {
             background-color: #e04d97;
         }
-        .btn-download {
-            background-color: #00ffcc;
-            color: #0b0510;
-            padding: 8px 15px;
-            font-weight: bold;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            text-decoration: none;
-            float: right;
-        }
         .map-item {
             background-color: #0b0510;
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 15px;
             border-left: 4px solid #ff66b2;
-            overflow: hidden;
-        }
-        .map-info {
-            float: left;
         }
         .map-info p {
             margin: 5px 0 0 0;
@@ -110,6 +96,23 @@
             margin-top: 10px;
             color: #ffcc00;
             font-size: 0.9rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #2e1a47;
+        }
+        th {
+            color: #ff66b2;
+        }
+        .rank-highlight {
+            font-weight: bold;
+            color: #00ffcc;
         }
     </style>
 </head>
@@ -155,25 +158,40 @@
             </form>
         </div>
 
-        <!-- BEATMAPS DOWNLOAD SYSTEM -->
+        <!-- SONGS LIST -->
         <div class="section">
-            <h2>Download Songs (Beatmaps)</h2>
-            
+            <h2>Songs List (Beatmaps)</h2>
             <div class="map-item">
                 <div class="map-info">
                     <strong>Ucup Theme Song - Remixed</strong>
                     <p>BPM: 180 | Difficulty: Hard</p>
                 </div>
-                <a href="https://githubusercontent.com" download="Ucup_Theme_Song.mp3" class="btn-download">Download Map</a>
             </div>
-
             <div class="map-item">
                 <div class="map-info">
                     <strong>Diva Cyber Track - Electronic</strong>
                     <p>BPM: 145 | Difficulty: Normal</p>
                 </div>
-                <a href="https://githubusercontent.com" download="Diva_Cyber_Track.mp3" class="btn-download">Download Map</a>
             </div>
+        </div>
+
+        <!-- GLOBAL RANKINGS -->
+        <div class="section">
+            <h2>Global Top Rankings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>RANK</th>
+                        <th>PLAYER NAME</th>
+                        <th>GRADE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="rank-highlight">#1</td><td>UcupThePro</td><td style="color: #ffcc00; font-weight: bold;">SS</td></tr>
+                    <tr><td class="rank-highlight">#2</td><td>DivaMaster</td><td style="color: #ff66b2; font-weight: bold;">S</td></tr>
+                    <tr><td class="rank-highlight">#3</td><td>OsuFanatic</td><td style="color: #00ffcc; font-weight: bold;">A</td></tr>
+                </tbody>
+            </table>
         </div>
 
         <!-- PREMIUM FEATURES -->
