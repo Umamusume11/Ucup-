@@ -23,6 +23,7 @@
             margin-bottom: 5px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 102, 178, 0.5);
         }
         .subtitle {
             color: #aaa;
@@ -42,6 +43,18 @@
             margin-top: 0;
             border-bottom: 2px solid #2e1a47;
             padding-bottom: 10px;
+        }
+        .suporter-badge {
+            background: linear-gradient(45deg, #ffcc00, #ff66b2);
+            color: #0b0510;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
         }
         input[type="text"], input[type="password"] {
             width: 100%;
@@ -68,6 +81,19 @@
         }
         .btn-submit:hover {
             background-color: #e04d97;
+        }
+        .btn-suporter {
+            background-color: #0b0510;
+            color: #ffcc00;
+            border: 2px solid #ffcc00;
+            padding: 8px 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-suporter:hover {
+            background-color: #ffcc00;
+            color: #0b0510;
         }
         .toggle-auth {
             color: #00ffcc;
@@ -128,7 +154,7 @@
         .grade-a { color: #00ffcc; font-weight: bold; }
         .user-status {
             background-color: #28173e;
-            padding: 10px;
+            padding: 12px;
             border-radius: 5px;
             margin-bottom: 20px;
             display: none;
@@ -143,8 +169,14 @@
         <h1>UCUP OFS</h1>
         <div class="subtitle">Official Account Dashboard & Leaderboards</div>
 
-        <!-- Status Login -->
+        <!-- Bagian Status Login -->
         <div id="userStatus" class="user-status"></div>
+
+        <!-- MENU KHUSUS: UCUP SUPORTER YANG ASLI -->
+        <div class="suporter-badge" id="suporterBadge" style="display: none;">
+            <span>👑 KLAIM STATUS: UCUP SUPORTER YANG ASLI</span>
+            <button class="btn-suporter" onclick="verifySuporter()">Verifikasi Status</button>
+        </div>
 
         <!-- Sistem Register & Login -->
         <div class="section" id="authSection">
@@ -167,7 +199,7 @@
             </div>
         </div>
 
-        <!-- Sistem Download Lagu (Beatmaps) -->
+        <!-- Sistem Download Lagu Beneran (File Audio Asli) -->
         <div class="section">
             <h2>Download Songs (Beatmaps)</h2>
             <div class="map-item">
@@ -175,14 +207,14 @@
                     <strong>Ucup Theme Song - Remixed</strong>
                     <p>BPM: 180 | Difficulty: ★★★★☆ (Hard)</p>
                 </div>
-                <button class="btn-download" onclick="downloadBeatmap('Ucup_Theme_Song_Remixed.osz', 'Audio data untuk Ucup Theme Song')">Download Map</button>
+                <button class="btn-download" onclick="generateRealAudio('Ucup_Theme_Song_Remixed.mp3')">Download Map</button>
             </div>
             <div class="map-item">
                 <div class="map-info">
                     <strong>Diva Cyber Track - Electronic</strong>
                     <p>BPM: 145 | Difficulty: ★★★☆☆ (Normal)</p>
                 </div>
-                <button class="btn-download" onclick="downloadBeatmap('Diva_Cyber_Track.osz', 'Audio data untuk Diva Cyber Track')">Download Map</button>
+                <button class="btn-download" onclick="generateRealAudio('Diva_Cyber_Track.mp3')">Download Map</button>
             </div>
         </div>
 
@@ -208,57 +240,38 @@
     </div>
 
     <script>
-        // Fitur Ganti Tampilan Login / Register
+        let currentUser = "";
+
+        // Fungsi Ganti Menu Antara Register / Login
         function toggleAuth(isRegister) {
             document.getElementById('authTitle').innerText = isRegister ? 'Account Registration' : 'Account Login';
             document.getElementById('registerForm').style.display = isRegister ? 'block' : 'none';
             document.getElementById('loginForm').style.display = isRegister ? 'none' : 'block';
         }
 
-        // Fitur Register Beneran (Simpan di Browser)
+        // Fungsi Register (Menyimpan Akun di Browser Lokal)
         function handleRegister() {
             const user = document.getElementById('regUsername').value.trim();
             const pass = document.getElementById('regPassword').value.trim();
             
-            if(!user || !pass) return alert('Username dan Password tidak boleh kosong!');
+            if(!user || !pass) return alert('Username dan Password wajib diisi!');
             
-            localStorage.setItem(user, pass);
-            alert('Akun ' + user + ' Berhasil Dibuat! Silakan masuk ke menu Login.');
+            localStorage.setItem("ucup_user_" + user, pass);
+            alert('Pendaftaran Berhasil! Akun "' + user + '" siap digunakan. Silakan Login.');
             toggleAuth(false);
         }
 
-        // Fitur Login Beneran
+        // Fungsi Login
         function handleLogin() {
             const user = document.getElementById('loginUsername').value.trim();
             const pass = document.getElementById('loginPassword').value.trim();
             
-            const savedPass = localStorage.getItem(user);
+            const savedPass = localStorage.getItem("ucup_user_" + user);
             
             if(savedPass && savedPass === pass) {
-                alert('Selamat datang kembali, ' + user + '!');
+                currentUser = user;
+                alert('Selamat datang di UCUP OFS, ' + user + '!');
+                
+                // Sembunyikan form login & munculkan status
                 document.getElementById('authSection').style.display = 'none';
                 const statusDiv = document.getElementById('userStatus');
-                statusDiv.innerText = '🟢 Logged in as: ' + user;
-                statusDiv.style.display = 'block';
-                
-                // Tambahkan user baru ke leaderboard secara otomatis
-                const tbody = document.getElementById('leaderboardBody');
-                tbody.innerHTML += `<tr><td class="rank-highlight">#4</td><td>${user}</td><td>Standard</td><td class="grade-a">A</td></tr>`;
-            } else {
-                alert('Username atau Password salah!');
-            }
-        }
-
-        // Fitur Download Lagu / Beatmap Beneran (.osz otomatis)
-        function downloadBeatmap(filename, content) {
-            const blob = new Blob([content], { type: 'application/octet-stream' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    </script>
-</body>
-</html>
