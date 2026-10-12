@@ -1,0 +1,32 @@
+name: Build HTML Game to EXE
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install Nativefier
+      run: npm install -g nativefier
+
+    - name: Convert HTML to EXE
+      run: |
+        nativefier --name "MyHTMLGame" --platform "windows" --arch "x64" . output/
+
+    - name: Upload EXE Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: game-windows-exe
+        path: output/
