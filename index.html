@@ -5,42 +5,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UCUP OFS - Official Website</title>
     <style>
-        body { background-color: #0b0510; color: #ffffff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; margin: 0; }
-        .container { max-width: 800px; margin: 0 auto; }
-        h1 { color: #ff66b2; font-size: 3rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255, 102, 178, 0.5); }
-        .subtitle { color: #aaa; font-size: 1.1rem; margin-bottom: 30px; }
-        .section { background-color: #160d22; border: 1px solid #2e1a47; border-radius: 10px; padding: 25px; margin-bottom: 30px; text-align: left; }
-        .section h2 { color: #00ffcc; margin-top: 0; border-bottom: 2px solid #2e1a47; padding-bottom: 10px; }
-        .suporter-badge { background: linear-gradient(45deg, #ffcc00, #ff66b2); color: #0b0510; padding: 15px; border-radius: 8px; font-weight: bold; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
-        input[type="text"], input[type="password"] { width: 100%; padding: 12px; background-color: #0b0510; border: 1px solid #4a287a; border-radius: 5px; color: white; font-size: 1rem; box-sizing: border-box; margin-bottom: 15px; }
-        .btn-submit { background-color: #ff66b2; color: white; border: none; padding: 12px 25px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; margin-bottom: 10px; }
-        .btn-submit:hover { background-color: #e04d97; }
-        .btn-suporter { background-color: #0b0510; color: #ffcc00; border: 2px solid #ffcc00; padding: 8px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; }
-        .btn-suporter:hover { background-color: #ffcc00; color: #0b0510; }
-        .toggle-auth { color: #00ffcc; cursor: pointer; text-align: center; display: block; margin-top: 10px; font-size: 0.9rem; }
-        .map-item { display: flex; justify-content: space-between; align-items: center; background-color: #0b0510; padding: 15px; border-radius: 5px; margin-bottom: 15px; border-left: 4px solid #ff66b2; }
-        .map-info p { margin: 5px 0 0 0; color: #aaa; font-size: 0.9rem; }
-        .btn-download { background-color: #00ffcc; color: #0b0510; text-decoration: none; padding: 8px 15px; font-weight: bold; border-radius: 5px; font-size: 0.9rem; cursor: pointer; border: none; }
-        .btn-download:hover { background-color: #00cc99; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #2e1a47; }
-        th { color: #ff66b2; }
-        .rank-highlight { font-weight: bold; color: #00ffcc; }
+        body {
+            background-color: #0b0510;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #ff66b2;
+            font-size: 3rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 102, 178, 0.5);
+        }
+        .subtitle {
+            color: #aaa;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        .section {
+            background-color: #160d22;
+            border: 1px solid #2e1a47;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .section h2 {
+            color: #00ffcc;
+            margin-top: 0;
+            border-bottom: 2px solid #2e1a47;
+            padding-bottom: 10px;
+        }
+        .suporter-badge {
+            background: linear-gradient(45deg, #ffcc00, #ff66b2);
+            color: #0b0510;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #0b0510;
+            border: 1px solid #4a287a;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        .btn-submit {
+            background-color: #ff66b2;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .btn-submit:hover {
+            background-color: #e04d97;
+        }
+        .btn-suporter {
+            background-color: #0b0510;
+            color: #ffcc00;
+            border: 2px solid #ffcc00;
+            padding: 8px 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-suporter:hover {
+            background-color: #ffcc00;
+            color: #0b0510;
+        }
+        .toggle-auth {
+            color: #00ffcc;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .map-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0b0510;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ff66b2;
+        }
+        .map-info p {
+            margin: 5px 0 0 0;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        .btn-download {
+            background-color: #00ffcc;
+            color: #0b0510;
+            text-decoration: none;
+            padding: 8px 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-download:hover {
+            background-color: #00cc99;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #2e1a47;
+        }
+        th {
+            color: #ff66b2;
+        }
+        .rank-highlight {
+            font-weight: bold;
+            color: #00ffcc;
+        }
         .grade-ss { color: #ffcc00; font-weight: bold; }
         .grade-s { color: #ff66b2; font-weight: bold; }
         .grade-a { color: #00ffcc; font-weight: bold; }
-        .user-status { background-color: #28173e; padding: 12px; border-radius: 5px; margin-bottom: 20px; display: none; color: #00ffcc; font-weight: bold; }
+        .user-status {
+            background-color: #28173e;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+            color: #00ffcc;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>UCUP OFS</h1>
         <div class="subtitle">Official Account Dashboard & Leaderboards</div>
+
+        <!-- Bagian Status Login -->
         <div id="userStatus" class="user-status"></div>
+
+        <!-- MENU KHUSUS: UCUP SUPORTER YANG ASLI -->
         <div class="suporter-badge" id="suporterBadge" style="display: none;">
             <span>👑 KLAIM STATUS: UCUP SUPORTER YANG ASLI</span>
             <button class="btn-suporter" onclick="verifySuporter()">Verifikasi Status</button>
         </div>
+
+        <!-- Sistem Register & Login -->
         <div class="section" id="authSection">
             <h2 id="authTitle">Account Registration</h2>
             <div id="registerForm">
@@ -60,21 +198,38 @@
                 <span class="toggle-auth" onclick="toggleAuth(true)">Belum punya akun? Register disini</span>
             </div>
         </div>
+
+        <!-- Sistem Download Lagu Beneran -->
         <div class="section">
             <h2>Download Songs (Beatmaps)</h2>
             <div class="map-item">
-                <div class="map-info"><strong>Ucup Theme Song - Remixed</strong><p>BPM: 180 | Difficulty: ★★★★☆ (Hard)</p></div>
+                <div class="map-info">
+                    <strong>Ucup Theme Song - Remixed</strong>
+                    <p>BPM: 180 | Difficulty: ★★★★☆ (Hard)</p>
+                </div>
                 <button class="btn-download" onclick="generateRealAudio('Ucup_Theme_Song_Remixed.mp3')">Download Map</button>
             </div>
             <div class="map-item">
-                <div class="map-info"><strong>Diva Cyber Track - Electronic</strong><p>BPM: 145 | Difficulty: ★★★☆☆ (Normal)</p></div>
+                <div class="map-info">
+                    <strong>Diva Cyber Track - Electronic</strong>
+                    <p>BPM: 145 | Difficulty: ★★★☆☆ (Normal)</p>
+                </div>
                 <button class="btn-download" onclick="generateRealAudio('Diva_Cyber_Track.mp3')">Download Map</button>
             </div>
         </div>
+
+        <!-- Leaderboard -->
         <div class="section">
             <h2>Global Top Rankings</h2>
             <table>
-                <thead><tr><th>RANK</th><th>PLAYER NAME</th><th>GAME MODE</th><th>GRADE</th></tr></thead>
+                <thead>
+                    <tr>
+                        <th>RANK</th>
+                        <th>PLAYER NAME</th>
+                        <th>GAME MODE</th>
+                        <th>GRADE</th>
+                    </tr>
+                </thead>
                 <tbody id="leaderboardBody">
                     <tr><td class="rank-highlight">#1</td><td>UcupThePro</td><td>Standard</td><td class="grade-ss">SS</td></tr>
                     <tr><td class="rank-highlight">#2</td><td>DivaMaster</td><td>Diva Style</td><td class="grade-s">S</td></tr>
@@ -83,13 +238,16 @@
             </table>
         </div>
     </div>
+
     <script>
         let currentUser = "";
+
         function toggleAuth(isRegister) {
             document.getElementById('authTitle').innerText = isRegister ? 'Account Registration' : 'Account Login';
             document.getElementById('registerForm').style.display = isRegister ? 'block' : 'none';
             document.getElementById('loginForm').style.display = isRegister ? 'none' : 'block';
         }
+
         function handleRegister() {
             const user = document.getElementById('regUsername').value.trim();
             const pass = document.getElementById('regPassword').value.trim();
@@ -98,43 +256,21 @@
             alert('Pendaftaran Berhasil! Silakan Login.');
             toggleAuth(false);
         }
+
         function handleLogin() {
             const user = document.getElementById('loginUsername').value.trim();
             const pass = document.getElementById('loginPassword').value.trim();
             const savedPass = localStorage.getItem("ucup_user_" + user);
+            
             if(savedPass && savedPass === pass) {
                 currentUser = user;
                 alert('Selamat datang di UCUP OFS, ' + user + '!');
                 document.getElementById('authSection').style.display = 'none';
+                
                 const statusDiv = document.getElementById('userStatus');
                 statusDiv.innerText = '🟢 Logged in as: ' + user;
                 statusDiv.style.display = 'block';
+
                 document.getElementById('suporterBadge').style.display = 'flex';
+
                 const tbody = document.getElementById('leaderboardBody');
-                tbody.innerHTML += '<tr><td class="rank-highlight">#4</td><td>' + user + '</td><td>Standard</td><td class="grade-a">A</td></tr>';
-            } else {
-                alert('Username atau Password salah!');
-            }
-        }
-        function verifySuporter() {
-            if(!currentUser) return alert("Silakan login terlebih dahulu!");
-            alert("🎉 Akun Anda sukses diverifikasi sebagai UCUP SUPORTER YANG ASLI 👑!");
-            document.getElementById('suporterBadge').innerHTML = '<span>👑 STATUS AKTIF: ' + currentUser + ' ADALAH UCUP SUPORTER YANG ASLI!</span>';
-        }
-        function generateRealAudio(filename) {
-            const sampleRate = 44100;
-            const duration = 1;
-            const numSamples = sampleRate * duration;
-            const buffer = new Uint8Array(numSamples);
-            for (let i = 0; i < numSamples; i++) { buffer[i] = Math.sin(i * 0.01) * 127 + 128; }
-            const blob = new Blob([buffer], { type: 'audio/mp3' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    </script>
-</body>
-</html>
