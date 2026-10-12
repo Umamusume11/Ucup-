@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,34 +8,27 @@
         body {
             background-color: #0b0510;
             color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             text-align: center;
             padding: 20px;
             margin: 0;
         }
         .container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
         }
         h1 {
             color: #ff66b2;
             font-size: 3rem;
-            margin-bottom: 5px;
             text-transform: uppercase;
-            letter-spacing: 2px;
             text-shadow: 0 0 10px rgba(255, 102, 178, 0.5);
-        }
-        .subtitle {
-            color: #aaa;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
         }
         .section {
             background-color: #160d22;
             border: 1px solid #2e1a47;
             border-radius: 10px;
             padding: 25px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: left;
         }
         .section h2 {
@@ -51,12 +44,10 @@
             border-radius: 8px;
             font-weight: bold;
             margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
             box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
         }
-        input[type="text"], input[type="password"], input[type="email"] {
+        input {
             width: 100%;
             padding: 12px;
             background-color: #0b0510;
@@ -67,7 +58,7 @@
             box-sizing: border-box;
             margin-bottom: 15px;
         }
-        .btn-submit {
+        .btn {
             background-color: #ff66b2;
             color: white;
             border: none;
@@ -77,99 +68,48 @@
             cursor: pointer;
             width: 100%;
             font-size: 1rem;
-            margin-bottom: 10px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            box-sizing: border-box;
         }
-        .btn-submit:hover {
+        .btn:hover {
             background-color: #e04d97;
         }
-        .btn-suporter {
-            background-color: #0b0510;
-            color: #ffcc00;
-            border: 2px solid #ffcc00;
+        .btn-download {
+            background-color: #00ffcc;
+            color: #0b0510;
             padding: 8px 15px;
             font-weight: bold;
             border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn-suporter:hover {
-            background-color: #ffcc00;
-            color: #0b0510;
-        }
-        .toggle-auth {
-            color: #00ffcc;
-            cursor: pointer;
-            text-align: center;
-            display: block;
-            margin-top: 10px;
             font-size: 0.9rem;
+            text-decoration: none;
+            float: right;
         }
         .map-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             background-color: #0b0510;
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 15px;
             border-left: 4px solid #ff66b2;
+            overflow: hidden;
+        }
+        .map-info {
+            float: left;
         }
         .map-info p {
             margin: 5px 0 0 0;
             color: #aaa;
             font-size: 0.9rem;
         }
-        .btn-download {
-            background-color: #00ffcc;
-            color: #0b0510;
-            text-decoration: none;
-            padding: 8px 15px;
-            font-weight: bold;
+        .premium-box {
+            background-color: #221435;
+            border: 1px dashed #ffcc00;
+            padding: 15px;
             border-radius: 5px;
+            margin-top: 10px;
+            color: #ffcc00;
             font-size: 0.9rem;
-            cursor: pointer;
-            border: none;
-        }
-        .btn-download:hover {
-            background-color: #00cc99;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #2e1a47;
-        }
-        th {
-            color: #ff66b2;
-        }
-        .rank-highlight {
-            font-weight: bold;
-            color: #00ffcc;
-        }
-        .grade-ss { color: #ffcc00; font-weight: bold; }
-        .grade-s { color: #ff66b2; font-weight: bold; }
-        .grade-a { color: #00ffcc; font-weight: bold; }
-        .user-status {
-            background-color: #28173e;
-            padding: 12px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: none;
-            color: #00ffcc;
-            font-weight: bold;
-        }
-        .premium-feature {
-            background-color: #1d2b27;
-            border: 1px solid #00ffcc;
-            color: #00ffcc;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            display: none;
         }
     </style>
 </head>
@@ -177,104 +117,74 @@
 
     <div class="container">
         <h1>UCUP OFS</h1>
-        <div class="subtitle">Official Account Dashboard & Leaderboards</div>
+        <p style="color: #aaa; margin-bottom: 30px;">Official Account Dashboard & Leaderboards</p>
 
-        <!-- Tampilan Status Logged In -->
-        <div id="userStatus" class="user-status"></div>
-
-        <!-- MENU PREMIUM: UCUP SUPORTER YANG ASLI -->
-        <div class="suporter-badge" id="suporterBadge" style="display: none;">
-            <span>👑 KLAIM STATUS: UCUP SUPORTER YANG ASLI</span>
-            <button class="btn-suporter" onclick="verifySuporter()">Verifikasi Akun</button>
+        <!-- OFFICIAL SUPORTER STATUS -->
+        <div class="suporter-badge">
+            👑 VIP STATUS: UCUP SUPORTER YANG ASLI ACTIVE!
         </div>
 
-        <!-- Jendela Autentikasi (Register & Login) -->
-        <div class="section" id="authSection">
-            <h2 id="authTitle">Account Registration</h2>
-            
-            <!-- Window Register -->
-            <div id="registerForm">
+        <!-- WINDOW 1: REGISTER -->
+        <div class="section">
+            <h2>Window 1: Create Account (Register)</h2>
+            <form action="#window-login">
                 <label>Email Address</label>
-                <input type="email" id="regEmail" placeholder="name@example.com">
+                <input type="email" placeholder="name@example.com" required>
+                
                 <label>Username</label>
-                <input type="text" id="regUsername" placeholder="Enter desired username">
+                <input type="text" placeholder="Enter your username" required>
+                
                 <label>Password</label>
-                <input type="password" id="regPassword" placeholder="Enter password">
-                <button class="btn-submit" onclick="handleRegister()">Verify & Create Account</button>
-                <span class="toggle-auth" onclick="toggleAuth(false)">Sudah punya akun? Login disini</span>
-            </div>
-
-            <!-- Window Login -->
-            <div id="loginForm" style="display: none;">
-                <label>Email or Username</label>
-                <input type="text" id="loginIdentifier" placeholder="Enter your email or username">
-                <label>Password</label>
-                <input type="password" id="loginPassword" placeholder="Enter your password">
-                <button class="btn-submit" onclick="handleLogin()">Sign In to Dashboard</button>
-                <span class="toggle-auth" onclick="toggleAuth(true)">Belum punya akun? Register disini</span>
-            </div>
+                <input type="password" placeholder="Enter your password" required>
+                
+                <button type="submit" class="btn">Save & Go to Login →</button>
+            </form>
         </div>
 
-        <!-- Sistem Download Lagu Musik Asli -->
+        <!-- WINDOW 2: LOGIN -->
+        <div class="section" id="window-login">
+            <h2>Window 2: Dashboard Access (Login)</h2>
+            <form onsubmit="alert('Login Successful! Welcome Ucup Suporter!'); return false;">
+                <label>Email or Username</label>
+                <input type="text" placeholder="Enter registered Email or Username" required>
+                
+                <label>Password</label>
+                <input type="password" placeholder="Enter your password" required>
+                
+                <button type="submit" class="btn">Sign In to Dashboard</button>
+            </form>
+        </div>
+
+        <!-- BEATMAPS DOWNLOAD SYSTEM -->
         <div class="section">
             <h2>Download Songs (Beatmaps)</h2>
+            
             <div class="map-item">
                 <div class="map-info">
                     <strong>Ucup Theme Song - Remixed</strong>
-                    <p>BPM: 180 | Difficulty: ★★★★☆ (Hard)</p>
-                    <div class="premium-feature class-premium">🔒 Fitur Terbaru: Auto Sync ke Cloud Game</div>
+                    <p>BPM: 180 | Difficulty: Hard</p>
                 </div>
-                <button class="btn-download" onclick="generateRealAudio('Ucup_Theme_Song_Remixed.mp3')">Download Map</button>
+                <a href="https://githubusercontent.com" download="Ucup_Theme_Song.mp3" class="btn-download">Download Map</a>
             </div>
+
             <div class="map-item">
                 <div class="map-info">
                     <strong>Diva Cyber Track - Electronic</strong>
-                    <p>BPM: 145 | Difficulty: ★★★☆☆ (Normal)</p>
-                    <div class="premium-feature class-premium">🔒 Fitur Terbaru: Auto Sync ke Cloud Game</div>
+                    <p>BPM: 145 | Difficulty: Normal</p>
                 </div>
-                <button class="btn-download" onclick="generateRealAudio('Diva_Cyber_Track.mp3')">Download Map</button>
+                <a href="https://githubusercontent.com" download="Diva_Cyber_Track.mp3" class="btn-download">Download Map</a>
             </div>
         </div>
 
-        <!-- Papan Peringkat Global -->
+        <!-- PREMIUM FEATURES -->
         <div class="section">
-            <h2>Global Top Rankings</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>RANK</th>
-                        <th>PLAYER NAME</th>
-                        <th>GAME MODE</th>
-                        <th>GRADE</th>
-                    </tr>
-                </thead>
-                <tbody id="leaderboardBody">
-                    <tr><td class="rank-highlight">#1</td><td>UcupThePro</td><td>Standard</td><td class="grade-ss">SS</td></tr>
-                    <tr><td class="rank-highlight">#2</td><td>DivaMaster</td><td>Diva Style</td><td class="grade-s">S</td></tr>
-                    <tr><td class="rank-highlight">#3</td><td>OsuFanatic</td><td>Standard</td><td class="grade-a">A</td></tr>
-                </tbody>
-            </table>
+            <h2>New Features (Suporter Only)</h2>
+            <div class="premium-box">
+                <strong>Connected to Cloud Game Core:</strong> Your supporter account is auto-syncing with the game database to backup your highscores safely.
+            </div>
         </div>
+
     </div>
 
-    <script>
-        let currentUser = "";
-
-        // Fungsi Ganti Tampilan Antara Register / Login
-        function toggleAuth(showRegister) {
-            document.getElementById('authTitle').innerText = showRegister ? 'Account Registration' : 'Account Login';
-            document.getElementById('registerForm').style.display = showRegister ? 'block' : 'none';
-            document.getElementById('loginForm').style.display = showRegister ? 'none' : 'block';
-        }
-
-        // Fungsi Mendaftar Akun & Save Data
-        function handleRegister() {
-            const email = document.getElementById('regEmail').value.trim();
-            const user = document.getElementById('regUsername').value.trim();
-            const pass = document.getElementById('regPassword').value.trim();
-            
-            if(!email || !user || !pass) return alert('Semua kolom data wajib diisi!');
-            
-            // Bungkus data akun
-
-        
+</body>
+</html>
