@@ -50,7 +50,7 @@
             padding: 15px;
             border-radius: 8px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -199,7 +199,7 @@
             </div>
         </div>
 
-        <!-- Sistem Download Lagu Beneran (File Audio Asli) -->
+        <!-- Sistem Download Lagu Beneran -->
         <div class="section">
             <h2>Download Songs (Beatmaps)</h2>
             <div class="map-item">
@@ -242,36 +242,34 @@
     <script>
         let currentUser = "";
 
-        // Fungsi Ganti Menu Antara Register / Login
         function toggleAuth(isRegister) {
             document.getElementById('authTitle').innerText = isRegister ? 'Account Registration' : 'Account Login';
             document.getElementById('registerForm').style.display = isRegister ? 'block' : 'none';
             document.getElementById('loginForm').style.display = isRegister ? 'none' : 'block';
         }
 
-        // Fungsi Register (Menyimpan Akun di Browser Lokal)
         function handleRegister() {
             const user = document.getElementById('regUsername').value.trim();
             const pass = document.getElementById('regPassword').value.trim();
-            
             if(!user || !pass) return alert('Username dan Password wajib diisi!');
-            
             localStorage.setItem("ucup_user_" + user, pass);
             alert('Pendaftaran Berhasil! Akun "' + user + '" siap digunakan. Silakan Login.');
             toggleAuth(false);
         }
 
-        // Fungsi Login
         function handleLogin() {
             const user = document.getElementById('loginUsername').value.trim();
             const pass = document.getElementById('loginPassword').value.trim();
-            
             const savedPass = localStorage.getItem("ucup_user_" + user);
             
             if(savedPass && savedPass === pass) {
                 currentUser = user;
                 alert('Selamat datang di UCUP OFS, ' + user + '!');
-                
-                // Sembunyikan form login & munculkan status
                 document.getElementById('authSection').style.display = 'none';
+                
                 const statusDiv = document.getElementById('userStatus');
+                statusDiv.innerText = '🟢 Logged in as: ' + user;
+                statusDiv.style.display = 'block';
+
+                document.getElementById('suporterBadge').style.display = 'flex';
+
