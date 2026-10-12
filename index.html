@@ -8,27 +8,34 @@
         body {
             background-color: #0b0510;
             color: #ffffff;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             padding: 20px;
             margin: 0;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
         }
         h1 {
             color: #ff66b2;
             font-size: 3rem;
+            margin-bottom: 5px;
             text-transform: uppercase;
+            letter-spacing: 2px;
             text-shadow: 0 0 10px rgba(255, 102, 178, 0.5);
+        }
+        .subtitle {
+            color: #aaa;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
         }
         .section {
             background-color: #160d22;
             border: 1px solid #2e1a47;
             border-radius: 10px;
             padding: 25px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: left;
         }
         .section h2 {
@@ -76,12 +83,26 @@
         .btn:hover {
             background-color: #e04d97;
         }
+        .btn-download {
+            background-color: #00ffcc;
+            color: #0b0510;
+            padding: 8px 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            float: right;
+        }
         .map-item {
             background-color: #0b0510;
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 15px;
             border-left: 4px solid #ff66b2;
+            overflow: hidden;
+        }
+        .map-info {
+            float: left;
         }
         .map-info p {
             margin: 5px 0 0 0;
@@ -114,13 +135,16 @@
             font-weight: bold;
             color: #00ffcc;
         }
+        .grade-ss { color: #ffcc00; font-weight: bold; }
+        .grade-s { color: #ff66b2; font-weight: bold; }
+        .grade-a { color: #00ffcc; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>UCUP OFS</h1>
-        <p style="color: #aaa; margin-bottom: 30px;">Official Account Dashboard & Leaderboards</p>
+        <p class="subtitle">Official Account Dashboard & Leaderboards</p>
 
         <!-- OFFICIAL SUPORTER STATUS -->
         <div class="suporter-badge">
@@ -158,24 +182,36 @@
             </form>
         </div>
 
-        <!-- SONGS LIST -->
+        <!-- SONGS DOWNLOAD SYSTEM (BEATMAPS) -->
         <div class="section">
-            <h2>Songs List (Beatmaps)</h2>
+            <h2>Download Songs (Beatmaps)</h2>
+            
             <div class="map-item">
                 <div class="map-info">
                     <strong>Ucup Theme Song - Remixed</strong>
-                    <p>BPM: 180 | Difficulty: Hard</p>
+                    <p>BPM: 180 | Difficulty: ★★★★☆ (Hard)</p>
                 </div>
+                <a href="https://stanford.edu" download="Ucup_Theme_Song_Remixed.mp3" class="btn-download">Download Map</a>
             </div>
+
             <div class="map-item">
                 <div class="map-info">
                     <strong>Diva Cyber Track - Electronic</strong>
-                    <p>BPM: 145 | Difficulty: Normal</p>
+                    <p>BPM: 145 | Difficulty: ★★★☆☆ (Normal)</p>
                 </div>
+                <a href="https://stanford.edu" download="Diva_Cyber_Track.mp3" class="btn-download">Download Map</a>
+            </div>
+            
+            <div class="map-item">
+                <div class="map-info">
+                    <strong>Cyberpunk Neo Tokyo - Synthwave</strong>
+                    <p>BPM: 165 | Difficulty: ★★★★★ (Expert)</p>
+                </div>
+                <a href="https://stanford.edu" download="Cyberpunk_Neo_Tokyo.mp3" class="btn-download">Download Map</a>
             </div>
         </div>
 
-        <!-- GLOBAL RANKINGS -->
+        <!-- GLOBAL LEADERBOARDS & RANK NAMES -->
         <div class="section">
             <h2>Global Top Rankings</h2>
             <table>
@@ -183,13 +219,35 @@
                     <tr>
                         <th>RANK</th>
                         <th>PLAYER NAME</th>
+                        <th>GAME MODE</th>
                         <th>GRADE</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td class="rank-highlight">#1</td><td>UcupThePro</td><td style="color: #ffcc00; font-weight: bold;">SS</td></tr>
-                    <tr><td class="rank-highlight">#2</td><td>DivaMaster</td><td style="color: #ff66b2; font-weight: bold;">S</td></tr>
-                    <tr><td class="rank-highlight">#3</td><td>OsuFanatic</td><td style="color: #00ffcc; font-weight: bold;">A</td></tr>
+                    <tr>
+                        <td class="rank-highlight">#1</td>
+                        <td>UcupThePro</td>
+                        <td>Standard</td>
+                        <td class="grade-ss">SS</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-highlight">#2</td>
+                        <td>DivaMaster</td>
+                        <td>Diva Style</td>
+                        <td class="grade-s">S</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-highlight">#3</td>
+                        <td>OsuFanatic</td>
+                        <td>Standard</td>
+                        <td class="grade-a">A</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-highlight">#4</td>
+                        <td>ummma</td>
+                        <td>Standard</td>
+                        <td class="grade-a">A</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -206,3 +264,4 @@
 
 </body>
 </html>
+
