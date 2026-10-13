@@ -42,37 +42,16 @@ jobs:
     - name: Checkout Source Code
       uses: actions/checkout@v4
 
-    - name: Set up Java JDK 17
-      uses: actions/setup-java@v4
+    - name: Ubah HTML Menjadi APK Otomatis (Anti-Gagal)
+      uses: torand/html-to-apk@v1
       with:
-        java-version: '17'
-        distribution: 'temurin'
-
-    - name: Set up Android SDK Alat Build
-      uses: android-actions/setup-android@v3
-
-    - name: Install Bubblewrap (Pembungkus Web ke APK Resmi)
-      run: |
-        npm install -g @bubblewrap/cli
-        # Membuat proyek Android instan dari game web Anda
-        bubblewrap init --manifest=https://githubusercontent.com --meta --force || true
-        mkdir -p android-output
-        
-        # Menggunakan template compiler dasar Gradle yang pasti menghasilkan APK debug
-        echo "plugins { id 'com.android.application' }" > build.gradle
-        echo "android { compileSdk 34; defaultConfig { applicationId 'com.ucup.game'; minSdk 21; targetSdk 34; versionCode 1; versionName '1.0' } }" >> build.gradle
-        mkdir -p src/main/assets/www
-        cp -r index.html docs/ welcome\ and\ gamemods/ README.md src/main/assets/www/ 2>/dev/null || cp index.html src/main/assets/www/
-        
-        # Buat wrapper gradle otomatis
-        gradle wrapper
-        chmod +x gradlew
-        ./gradlew assembleDebug
-        cp app/build/outputs/apk/debug/*.apk android-output/ 2>/dev/null || cp build/outputs/apk/debug/*.apk android-output/ 2>/dev/null || find . -name "*.apk" -exec cp {} android-output/ \;
+        # Nama aplikasi saat diinstal di HP Android Anda
+        app-name: "UcupGame"
+        # Menandakan lokasi file index.html Anda ada di folder utama (root)
+        source-dir: "."
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: game-android-apk
-        path: android-output/*.apk
-
+        path: "*.apk"
