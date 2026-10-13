@@ -1,0 +1,36 @@
+name: Build HTML to Android APK
+
+on:
+  push:
+    tags:
+      - 'v*' # Alur kerja otomatis aktif setiap kali Anda membuat tag versi baru (misal: v1.0.1)
+
+permissions:
+  contents: write # Memberikan izin kepada GitHub untuk otomatis membuat halaman rilis dan menempelkan APK
+
+jobs:
+  convert-to-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Convert HTML to Android APK
+      uses: kimhuilim/html-to-apk-action@v1
+      with:
+        # Menandakan lokasi file index.html Anda ada di folder utama (root)
+        build-folder-path: './' 
+        app-name: 'UcupGame'
+        output-folder-path: 'output-apk/'
+
+    - name: Buat Rilis Otomatis dan Unggah APK Game
+      uses: softprops/action-gh-release@v2
+      with:
+        files: output-apk/*.apk
+        name: Release ${{ github.ref_name }}
+        tag_name: ${{ github.ref }}
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
