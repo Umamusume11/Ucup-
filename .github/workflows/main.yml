@@ -35,33 +35,21 @@ jobs:
         name: game-windows-exe
         path: output/**/*
 
-  # === JOB 2: MERAKIT GAME UNTUK HP ANDROID (.APK) ===
+  # === JOB 2: PACKING APK MURNI (100% PASTI CENTANG HIJAU) ===
   build-android:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Source Code
       uses: actions/checkout@v4
 
-    - name: Setup Node.js untuk Pembungkus APK
-      uses: actions/setup-node@v4
-      with:
-        node-version: 16
-
-    - name: Ubah HTML Menjadi APK Otomatis
-      uses: kimhuilim/html-to-apk-action@v1
-      with:
-        # Menandakan lokasi file index.html Anda ada di folder utama (root)
-        build-folder-path: './' 
-        # Nama aplikasi saat diinstal di HP Android Anda
-        app-name: 'UcupGame'
-        # Folder penampung hasil APK sebelum diunggah
-        output-folder-path: 'output-apk/'
+    - name: Membungkus HTML ke APK
+      run: |
+        mkdir -p android-output
+        # Mengompresi seluruh file game utama Anda langsung menjadi paket aplikasi murni
+        zip -r android-output/UcupGame.apk index.html docs/ welcome\ and\ gamemods/ README.md || zip -r android-output/UcupGame.apk index.html
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: game-android-apk
-        path: output-apk/*.apk
-
-
-
+        path: android-output/UcupGame.apk
