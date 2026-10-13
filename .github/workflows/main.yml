@@ -6,17 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  # === JOB 1: WINDOWS .EXE (91 MB - SUKSES) ===
+  # === JOB 1: WINDOWS .EXE ===
   build-windows:
     runs-on: windows-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-
-    - name: Setup .NET 10 SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '10.0.x'
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -35,31 +30,46 @@ jobs:
         name: game-windows-exe
         path: output/**/*
 
-  # === JOB 2: ANDROID .APK ASLI (UKURAN MB & BISA DIINSTAL) ===
+  # === JOB 2: ANDROID .APK ASLI (DENGAN ENGINE ANDROID RESMI) ===
   build-android:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout Source Code
       uses: actions/checkout@v4
 
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v5
+    - name: Pasang Java JDK 17
+      uses: actions/setup-java@v4
       with:
-        python-version: '3.10'
+        java-version: '17'
+        distribution: 'temurin'
 
-    - name: Install System Dependencies
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Merakit APK Android Asli Lewat Capacitor
       run: |
-        sudo apt-get update
-        sudo apt-get install -y libsqlite3-dev lldb lld libssl-dev libffi-dev autoconf automake libtool pkg-config zlib1g-dev
+        npm install @capacitor/core @capacitor/cli
+        npx cap init UcupGame com.ucup.game --web-dir=.
+        npm install @capacitor/android
+        npx cap add android
+        
+        # Sinkronisasi aset game HTML Anda ke dalam folder Android asli
+        npx cap sync android
+        
+        # Masuk ke folder Android dan kompilasi menggunakan Gradle resmi Google
+        cd android
+        chmod +x gradlew
+        ./gradlew assembleDebug
+        
+        # Pindahkan file APK asli yang sudah jadi ke folder luar
+        mkdir -p ../android-output
+        cp app/build/outputs/apk/debug/app-debug.apk ../android-output/UcupGame.apk
 
-    - name: Build Android APK via Buildozer
-      uses: ArtemGovorov/buildozer-action@v1
-      with:
-        workdir: .
-        command: buildozer android debug
-
-    - name: Upload APK Artifact
+    - name: Upload APK Artifact Resmi
       uses: actions/upload-artifact@v4
       with:
         name: game-android-apk
-        path: .buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/outputs/apk/debug/*.apk
+        path: android-output/UcupGame.apk
+
