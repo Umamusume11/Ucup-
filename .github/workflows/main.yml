@@ -1,4 +1,4 @@
-name: Build HTML Game to EXE with .NET 10 Support
+name: Build Game for Windows EXE and Android APK
 
 on:
   push:
@@ -6,37 +6,61 @@ on:
   workflow_dispatch:
 
 jobs:
+  # === JOB 1: MERAKIT GAME UNTUK WINDOWS (.EXE) ===
   build-windows:
     runs-on: windows-latest
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # 1. Memasang .NET 10 SDK ke dalam server Windows Runner GitHub
     - name: Setup .NET 10 SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '10.0.x' # Mengunci lingkungan ke versi .NET 10 terbaru
+        dotnet-version: '10.0.x'
 
-    # 2. Menyiapkan Node.js untuk kebutuhan pembungkusan aplikasi
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 18
 
-    # 3. Memasang Nativefier untuk mengubah web menjadi aplikasi desktop
     - name: Install Nativefier
       run: npm install -g nativefier
 
-    # 4. Proses konversi game HTML menjadi aplikasi desktop EXE Windows
     - name: Convert HTML to EXE
-      run: |
-        nativefier --name "MyHTMLGame" --platform "windows" --arch "x64" . output/
+      run: nativefier --name "MyHTMLGame" --platform "windows" --arch "x64" . output/
 
-    # 5. Mengunggah hasil jadi file EXE game ke halaman Actions Artifacts
     - name: Upload EXE Artifact
       uses: actions/upload-artifact@v4
       with:
         name: game-windows-exe
-        path: output/**/* # Menjamin seluruh file hasil build di dalam folder output terunggah
+        path: output/**/*
+
+  # === JOB 2: MERAKIT GAME UNTUK HP ANDROID (.APK) ===
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Set up Java JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Install Cordova and Build APK
+      run: |
+        npm install -g cordova
+        cordova create ucup-android-app com.ucup.game "UcupGame"
+        cp -r index.html docs/ welcome\ and\ gamemods/ README.md ucup-android-app/www/ 2>/dev/null || cp index.html ucup-android-app/www/
+        cd ucup-android-app
+        cordova platform add android
+        cordova build android --device --release
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: game-android-apk
+        path: |
+          **/*.apk
+
