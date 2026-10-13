@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # === JOB 1: MERAKIT GAME UNTUK WINDOWS (.EXE) ===
+  # === JOB 1: WINDOWS .EXE (91 MB - SUKSES) ===
   build-windows:
     runs-on: windows-latest
     steps:
@@ -35,21 +35,31 @@ jobs:
         name: game-windows-exe
         path: output/**/*
 
-  # === JOB 2: PACKING APK MURNI (100% PASTI CENTANG HIJAU) ===
+  # === JOB 2: ANDROID .APK ASLI (UKURAN MB & BISA DIINSTAL) ===
   build-android:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - name: Checkout Source Code
       uses: actions/checkout@v4
 
-    - name: Membungkus HTML ke APK
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install System Dependencies
       run: |
-        mkdir -p android-output
-        # Mengompresi seluruh file game utama Anda langsung menjadi paket aplikasi murni
-        zip -r android-output/UcupGame.apk index.html docs/ welcome\ and\ gamemods/ README.md || zip -r android-output/UcupGame.apk index.html
+        sudo apt-get update
+        sudo apt-get install -y libsqlite3-dev lldb lld libssl-dev libffi-dev autoconf automake libtool pkg-config zlib1g-dev
+
+    - name: Build Android APK via Buildozer
+      uses: ArtemGovorov/buildozer-action@v1
+      with:
+        workdir: .
+        command: buildozer android debug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: game-android-apk
-        path: android-output/UcupGame.apk
+        path: .buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/outputs/apk/debug/*.apk
