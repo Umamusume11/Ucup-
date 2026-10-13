@@ -3,7 +3,7 @@ name: Build HTML to Android APK
 on:
   push:
     branches:
-      - main # APK akan langsung dibuat otomatis setiap kali Anda push atau commit di branch main
+      - main
 
 permissions:
   contents: write
@@ -26,7 +26,6 @@ jobs:
       run: |
         npm install -g cordova
         cordova create ucup-android-app com.ucup.game "UcupGame"
-        # Menyalin index.html dan semua berkas pendukung game Anda
         cp -r index.html docs/ welcome\ and\ gamemods/ README.md ucup-android-app/www/ 2>/dev/null || cp index.html ucup-android-app/www/
         cd ucup-android-app
         cordova platform add android
@@ -36,4 +35,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: UcupGame-Android-APK
-        path: ucup-android-app/platforms/android/app/build/outputs/apk/release/*-unsigned.apk
+        path: |
+          **/*.apk
